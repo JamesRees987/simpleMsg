@@ -2,7 +2,7 @@
 
 <div class="container mt-5" style="max-width: 500px">
   <h1 class="mb-3">Sign Up</h1>
-  <form>
+  <form id="signUpForm">
     <input
       type="text"
       class="form-control mb-2"
@@ -16,14 +16,68 @@
       required
     />
     <input
+      id="password"
       type="password"
-      class="form-control mb-3"
+      class="form-control mb-2"
       placeholder="Password"
       required
     />
+    <div id="strengthBar" class="progress mb-2">
+      <div id="strengthLevel" class="progress-bar" role="progressbar"></div>
+    </div>
+
+    <input
+      type="password"
+      class="form-control mb-3"
+      placeholder="Confirm Password"
+      required
+    />
     <button type="submit" class="btn btn-primary w-100 mb-2">Sign In</button>
-    <button class="btn btn-secondary w-100" onclick="goBack()">Go back</button>
+    <button class="btn btn-secondary w-100 mb-2" onclick="goBack()">
+      Go back
+    </button>
+
+    <div class="text-center">
+      <p>
+        <a
+          href="/signIn"
+          class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+          >Already have an account? Log in.</a
+        >
+      </p>
+    </div>
   </form>
 </div>
+
+<script>
+  const password = document.getElementById("password");
+  const strengthLevel = document.getElementById("strengthLevel");
+  const strengthText = document.getElementById("strengthText");
+
+  password.addEventListener("input", () => {
+    const val = password.value;
+    let strength = 0;
+
+    if (val.length >= 8) strength++;
+    if (/[A-Z]/.test(val)) strength++;
+    if (/[a-z]/.test(val)) strength++;
+    if (/[0-9]/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+    const percent = (strength / 5) * 100;
+    strengthLevel.style.width = percent + "%";
+
+    if (strength <= 2) {
+      strengthLevel.className =
+        "progress-bar progress-bar-striped progress-bar-animated bg-danger";
+    } else if (strength === 3 || strength === 4) {
+      strengthLevel.className =
+        "progress-bar progress-bar-striped progress-bar-animated bg-warning";
+    } else {
+      strengthLevel.className =
+        "progress-bar progress-bar-striped progress-bar-animated bg-success";
+    }
+  });
+</script>
 
 {% endblock %}

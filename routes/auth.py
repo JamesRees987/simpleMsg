@@ -24,6 +24,8 @@ def authRecieve():
         case "/signIn":
             email = data.get("email")
             password = data.get("password")
+            print(email)
+            print(password)
         
         case "/signUp":
             pass

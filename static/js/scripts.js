@@ -33,3 +33,6 @@ if (window.location.pathname === "/signIn") {
       alert(result.message);
     });
 }
+
+if (window.location.pathname === "/signUp") {
+}
