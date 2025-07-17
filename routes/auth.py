@@ -1,18 +1,35 @@
-from flask import Blueprint, render_template
-from forms import SignInForm, SignUpForm
+from flask import Blueprint, render_template, jsonify, request
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/signIn')
 def signIn():
-    form = SignInForm()
-    return render_template("auth/signIn.html", form=form)
+    return render_template("auth/signIn.html")
 
 @auth.route('/signUp')
 def signUp():
-    form = SignUpForm()
-    return render_template("auth/signUp.html", form=form)
+    return render_template("auth/signUp.html")
 
-@auth.route('/auth/signOut')
+@auth.route('/signOut')
 def signOut():
     pass
+
+@auth.route('/authRecieve', methods=["POST"])
+def authRecieve():
+    data = request.get_json()
+    origin = data.get("sentFrom")
+    print(origin)
+
+    match origin:
+        case "/signIn":
+            email = data.get("email")
+            password = data.get("password")
+        
+        case "/signUp":
+            pass
+
+        case _:
+            return jsonify({"message": "Invalid path."}), 404
+    
+
+    return jsonify({"message": "Data recieved."})

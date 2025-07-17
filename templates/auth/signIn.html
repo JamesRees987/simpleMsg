@@ -1,47 +1,25 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-  <div class="container mt-4">
-    <h1>Sign In</h1>
-    <form method="POST">
-      {{ form.hidden_tag() }}
-      <div class="mb-3">
-        {{ form.userName.label(class="form-label") }}
-        {{ form.userName(class="form-control") }}
-        {% if form.userName.errors %}
-          <div class="text-danger">
-            {% for error in form.userName.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="mb-3">
-        {{ form.email.label(class="form-label") }}
-        {{ form.email(class="form-control") }}
-        {% if form.email.errors %}
-          <div class="text-danger">
-            {% for error in form.email.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="mb-3">
-        {{ form.password.label(class="form-label") }}
-        {{ form.password(class="form-control") }}
-        {% if form.password.errors %}
-          <div class="text-danger">
-            {% for error in form.password.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-      <div class="mb-3">
-        {{ form.submit(class="btn btn-primary") }}
-        <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
-      </div>
-    </form>
-  </div>
+<div class="container mt-5" style="max-width: 500px">
+  <h2 class="mb-3">Sign In</h2>
+  <form id="signInForm">
+    <input
+      type="email"
+      id="email"
+      class="form-control mb-2"
+      placeholder="Email"
+      required
+    />
+    <input
+      type="password"
+      id="password"
+      class="form-control mb-3"
+      placeholder="Password"
+      required
+    />
+    <button type="submit" class="btn btn-primary w-100 mb-2">Sign In</button>
+    <button class="btn btn-secondary w-100" onclick="goBack()">Go back</button>
+  </form>
+</div>
+
 {% endblock %}
